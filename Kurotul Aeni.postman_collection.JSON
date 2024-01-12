@@ -1,0 +1,1173 @@
+{
+	"info": {
+		"_postman_id": "552a26dc-ebab-46b3-b18e-b9c05d4b21f4",
+		"name": "Simple Books API Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24133149"
+	},
+	"item": [
+		{
+			"name": "Single Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response;",
+							"",
+							"pm.test(\"Status Code is 200\", function () {",
+							"",
+							"    response.to.have.status(200);",
+							"",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"keys = [\"id\", \"bookId\", \"customerName\", \"createdBy\", \"quantity\", \"timestamp\"]",
+							"keys.forEach((key) => ",
+							"    pm.test(\"Key \" + key +\" is successfully shown\", function () {",
+							"     pm.expect(response.text()).to.include(key);",
+							"    }));",
+							"",
+							"pm.test(\"All values of Order ID \" + response.json().id + \" are not null\", function () {",
+							"",
+							"    pm.expect(response.json().id).to.not.eql(null);",
+							"    pm.expect(response.json().bookId).to.not.eql(null);",
+							"    pm.expect(response.json().customerName).to.not.eql(null);",
+							"    pm.expect(response.json().createdBy).to.not.eql(null);",
+							"    pm.expect(response.json().quantity).to.not.eql(null);",
+							"    pm.expect(response.json().timestamp).to.not.eql(null);",
+							"    })",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "8e747e5ee10e50e2a2c05255cc7b0073acb03aec5b37f32b0ce6f1b1db5eddb9",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/orders/_6AixKAQ1xxE7jQLTrDXu?orderId=_6AixKAQ1xxE7jQLTrDXu",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"orders",
+						"_6AixKAQ1xxE7jQLTrDXu"
+					],
+					"query": [
+						{
+							"key": "orderId",
+							"value": "_6AixKAQ1xxE7jQLTrDXu"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Single Order",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://simple-books-api.glitch.me/orders/_6AixKAQ1xxE7jQLTrDXu?orderId=_6AixKAQ1xxE7jQLTrDXu",
+							"protocol": "https",
+							"host": [
+								"simple-books-api",
+								"glitch",
+								"me"
+							],
+							"path": [
+								"orders",
+								"_6AixKAQ1xxE7jQLTrDXu"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": "_6AixKAQ1xxE7jQLTrDXu"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jan 2024 13:10:55 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "181"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"b5-pgKEi4rOeyoj//6uxN+rbeAMNYQ\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"_6AixKAQ1xxE7jQLTrDXu\",\n    \"bookId\": 1,\n    \"customerName\": \"John\",\n    \"createdBy\": \"b52e3006bec52f41b1aa3ab1b2a6175df35c98fcb9a06a5a78bb4de1091923d2\",\n    \"quantity\": 1,\n    \"timestamp\": 1704989663340\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response;",
+							"",
+							"pm.test(\"Status Code is 204\", function () {",
+							"",
+							"    response.to.have.status(204);",
+							"",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(response.responseTime).to.be.below(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"customerName\": \"Nini\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/orders/{{orderID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"orders",
+						"{{orderID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Order",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "26bcf0901cea7da4d7f9307b00e92e6e201a1e9fef2484ff458984ea8a9d71b2",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerName\": \"John\",\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://simple-books-api.glitch.me/orders/BcXCdoDIf0Z5MxfWIo5_E",
+							"protocol": "https",
+							"host": [
+								"simple-books-api",
+								"glitch",
+								"me"
+							],
+							"path": [
+								"orders",
+								"BcXCdoDIf0Z5MxfWIo5_E"
+							]
+						}
+					},
+					"status": "Unprocessable Entity",
+					"code": 422,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jan 2024 13:40:27 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "20"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "access-control-allow-origin",
+							"value": "*"
+						},
+						{
+							"key": "access-control-allow-methods",
+							"value": "GET, POST, OPTIONS, PUT, DELETE"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"14-Buua4h4AYmB7XaCZYxzO2/gkScQ\""
+						}
+					],
+					"cookie": [],
+					"body": "Unprocessable Entity"
+				}
+			]
+		},
+		{
+			"name": "Delete Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response;",
+							"",
+							"pm.test(\"Status Code is 204\", function () {",
+							"",
+							"    response.to.have.status(204);",
+							"",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(response.responseTime).to.be.below(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/orders/{{orderID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"orders",
+						"{{orderID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Order",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://simple-books-api.glitch.me/orders/BcXCdoDIf0Z5MxfWIo5_E",
+							"protocol": "https",
+							"host": [
+								"simple-books-api",
+								"glitch",
+								"me"
+							],
+							"path": [
+								"orders",
+								"BcXCdoDIf0Z5MxfWIo5_E"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jan 2024 13:43:28 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "51"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"33-19NrijzQ7oHVykHyPrt6eV+mn68\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"No order with id BcXCdoDIf0Z5MxfWIo5_E.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response;",
+							"pm.test(\"Status Code is 200\", function () {",
+							"",
+							"    response.to.have.status(200);",
+							"",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"pm.test(\"Key status is shown\", function () {",
+							"    pm.expect(response.text()).to.include(\"status\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/status",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Status",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://simple-books-api.glitch.me/status",
+							"protocol": "https",
+							"host": [
+								"simple-books-api",
+								"glitch",
+								"me"
+							],
+							"path": [
+								"status"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jan 2024 13:09:21 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "15"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"f-v/Y1JusChTxrQUzPtNAKycooOTA\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\"\n}"
+				}
+			]
+		},
+		{
+			"name": "List of Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response;",
+							"",
+							"pm.test(\"Status Code is 200\", function () {",
+							"",
+							"    response.to.have.status(200);",
+							"",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"keys = [\"id\", \"name\", \"type\", \"available\"]",
+							"",
+							"response.json().forEach((item) => ",
+							"pm.test(\"All values of Book ID \" + item.id + \" are not null\", function () {",
+							"    keys.forEach((key) => ",
+							"    pm.test(\"Key \" + key + \" of Book ID \" + item.id + \" is successfully shown\", function () {",
+							"     pm.expect(response.text()).to.include(key);",
+							"    }));",
+							"    pm.expect(item.id).to.not.eql(null);",
+							"    pm.expect(item.name).to.not.eql(null);",
+							"    pm.expect(item.type).to.not.eql(null);",
+							"    pm.expect(item.available).to.not.eql(null);",
+							"    })",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/books?type=non-fiction&limit=5",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "non-fiction"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "List of Books",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://simple-books-api.glitch.me/books?type=non-fiction&limit=5",
+							"protocol": "https",
+							"host": [
+								"simple-books-api",
+								"glitch",
+								"me"
+							],
+							"path": [
+								"books"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "non-fiction"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jan 2024 13:09:38 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "135"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"87-fbXCfgu0GEMnqcRoXq5fuhhKazw\""
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 2,\n        \"name\": \"Just as I Am\",\n        \"type\": \"non-fiction\",\n        \"available\": false\n    },\n    {\n        \"id\": 5,\n        \"name\": \"Untamed\",\n        \"type\": \"non-fiction\",\n        \"available\": true\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Single Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response;",
+							"",
+							"pm.test(\"Status Code is 200\", function () {",
+							"",
+							"    response.to.have.status(200);",
+							"",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"keys = [\"id\", \"name\", \"author\", \"isbn\", \"type\", \"price\", \"current-stock\", \"available\"]",
+							"keys.forEach((key) => ",
+							"    pm.test(\"Key \" + key +\" is successfully shown\", function () {",
+							"     pm.expect(response.text()).to.include(key);",
+							"    }));",
+							"",
+							"pm.test(\"All values of Book ID \" + response.json().id + \" are not null\", function () {",
+							"",
+							"    pm.expect(response.json().id).to.not.eql(null);",
+							"    pm.expect(response.json().name).to.not.eql(null);",
+							"    pm.expect(response.json().author).to.not.eql(null);",
+							"    pm.expect(response.json().isbn).to.not.eql(null);",
+							"    pm.expect(response.json().type).to.not.eql(null);",
+							"    pm.expect(response.json().price).to.not.eql(null);",
+							"    pm.expect(response.json().available).to.not.eql(null);",
+							"    })",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/books?Bookcode=1",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "Bookcode",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Single Book",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://simple-books-api.glitch.me/books?Bookcode=1",
+							"protocol": "https",
+							"host": [
+								"simple-books-api",
+								"glitch",
+								"me"
+							],
+							"path": [
+								"books"
+							],
+							"query": [
+								{
+									"key": "Bookcode",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jan 2024 13:09:54 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "417"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"1a1-MfqhfTYtZO2sguD1mJq8Vf41WjU\""
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"The Russian\",\n        \"type\": \"fiction\",\n        \"available\": true\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Just as I Am\",\n        \"type\": \"non-fiction\",\n        \"available\": false\n    },\n    {\n        \"id\": 3,\n        \"name\": \"The Vanishing Half\",\n        \"type\": \"fiction\",\n        \"available\": true\n    },\n    {\n        \"id\": 4,\n        \"name\": \"The Midnight Library\",\n        \"type\": \"fiction\",\n        \"available\": true\n    },\n    {\n        \"id\": 5,\n        \"name\": \"Untamed\",\n        \"type\": \"non-fiction\",\n        \"available\": true\n    },\n    {\n        \"id\": 6,\n        \"name\": \"Viscount Who Loved Me\",\n        \"type\": \"fiction\",\n        \"available\": true\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Submit Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response;",
+							"pm.environment.set(\"orderID\", response.json().orderId);",
+							"",
+							"pm.test(\"Status Code is 201\", function () {",
+							"",
+							"    response.to.have.status(201);",
+							"",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"keys = [\"created\", \"orderId\"]",
+							"keys.forEach((key) => ",
+							"    pm.test(\"Key \" + key +\" is successfully shown\", function () {",
+							"     pm.expect(response.text()).to.include(key);",
+							"    }));",
+							"",
+							"pm.test(\"Order is successfully created\", function () {",
+							"    pm.expect(response.json().created).to.eql(true);",
+							"    })",
+							"",
+							"pm.test(\"Order ID is not null\", function () {",
+							"    pm.expect(response.json().orderId).to.not.eql(null);",
+							"    })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "8e747e5ee10e50e2a2c05255cc7b0073acb03aec5b37f32b0ce6f1b1db5eddb9",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"bookId\": 1,\n  \"customerName\": \"John\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/orders?bookId=&customerName=",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"orders"
+					],
+					"query": [
+						{
+							"key": "bookId",
+							"value": ""
+						},
+						{
+							"key": "customerName",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Submit Order",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bookId\": 1,\n  \"customerName\": \"John\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://simple-books-api.glitch.me/orders?bookId=&customerName=",
+							"protocol": "https",
+							"host": [
+								"simple-books-api",
+								"glitch",
+								"me"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "bookId",
+									"value": ""
+								},
+								{
+									"key": "customerName",
+									"value": ""
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jan 2024 13:10:12 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "50"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"32-9qi/Wbkze62RXmyQTFnIth82rq4\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"created\": true,\n    \"orderId\": \"BcXCdoDIf0Z5MxfWIo5_E\"\n}"
+				}
+			]
+		},
+		{
+			"name": "All Orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response;",
+							"",
+							"pm.test(\"Status Code is 200\", function () {",
+							"",
+							"    response.to.have.status(200);",
+							"",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"keys = [\"id\", \"bookId\", \"customerName\", \"createdBy\", \"quantity\", \"timestamp\"]",
+							"",
+							"",
+							"response.json().forEach((item) => ",
+							"pm.test(\"All values of Order ID \" + item.id + \" are not null\", function () {",
+							"    keys.forEach((key) => ",
+							"    pm.test(\"Key \" + key + \" of Order ID \" + item.id + \" is successfully shown\", function () {",
+							"     pm.expect(response.text()).to.include(key);",
+							"    }));",
+							"    pm.expect(item.id).to.not.eql(null);",
+							"    pm.expect(item.bookId).to.not.eql(null);",
+							"    pm.expect(item.customerName).to.not.eql(null);",
+							"    pm.expect(item.createdBy).to.not.eql(null);",
+							"    pm.expect(item.quantity).to.not.eql(null);",
+							"    pm.expect(item.timestamp).to.not.eql(null);",
+							"    })",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "8e747e5ee10e50e2a2c05255cc7b0073acb03aec5b37f32b0ce6f1b1db5eddb9",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/orders?bookId=1&customerName=Kurotul Aeni",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"orders"
+					],
+					"query": [
+						{
+							"key": "bookId",
+							"value": "1"
+						},
+						{
+							"key": "customerName",
+							"value": "Kurotul Aeni"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "All Orders",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://simple-books-api.glitch.me/orders?bookId=1&customerName=Kurotul Aeni",
+							"protocol": "https",
+							"host": [
+								"simple-books-api",
+								"glitch",
+								"me"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "bookId",
+									"value": "1"
+								},
+								{
+									"key": "customerName",
+									"value": "Kurotul Aeni"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jan 2024 13:10:30 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "365"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"16d-QsKmau4dr1D0KPWj3rl1nr9jemw\""
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"_6AixKAQ1xxE7jQLTrDXu\",\n        \"bookId\": 1,\n        \"customerName\": \"John\",\n        \"createdBy\": \"b52e3006bec52f41b1aa3ab1b2a6175df35c98fcb9a06a5a78bb4de1091923d2\",\n        \"quantity\": 1,\n        \"timestamp\": 1704989663340\n    },\n    {\n        \"id\": \"BcXCdoDIf0Z5MxfWIo5_E\",\n        \"bookId\": 1,\n        \"customerName\": \"John\",\n        \"createdBy\": \"b52e3006bec52f41b1aa3ab1b2a6175df35c98fcb9a06a5a78bb4de1091923d2\",\n        \"quantity\": 1,\n        \"timestamp\": 1705065012464\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "API Authentication",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var name = '{{$randomFullName}}';",
+							"var email = '{{$randomFirstName}}@example.com';",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"clientName\": \"Kurotul\",\n  \"clientEmail\": \"kurot@example.com\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/api-clients",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"api-clients"
+					],
+					"query": [
+						{
+							"key": "clientName",
+							"value": "La",
+							"disabled": true
+						},
+						{
+							"key": "clientEmail",
+							"value": "la2223@example.com",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "API Authentication",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientName\": \"Kurotul\",\n  \"clientEmail\": \"kurota@example.com\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://simple-books-api.glitch.me/api-clients",
+							"protocol": "https",
+							"host": [
+								"simple-books-api",
+								"glitch",
+								"me"
+							],
+							"path": [
+								"api-clients"
+							],
+							"query": [
+								{
+									"key": "clientName",
+									"value": "La",
+									"disabled": true
+								},
+								{
+									"key": "clientEmail",
+									"value": "la2223@example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 12 Jan 2024 13:11:44 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "82"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"52-Sz844gTBM6hdf4OShe6OG1llwsw\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"accessToken\": \"160428553f20b9c0e8b04fe976bfb9b57968b1e4283d37bf148f39bc15250576\"\n}"
+				}
+			]
+		}
+	]
+}
